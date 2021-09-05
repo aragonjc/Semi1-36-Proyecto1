@@ -5,4 +5,15 @@ const addNewUser = async (username,email,password,photoUrl)=> {
     return user.id;
 }
 
-module.exports = {addNewUser};
+const loginUser = async (user)=> {
+    
+    const userSearch = await User.findOne({where: {nickname: user}});
+    return userSearch
+}
+
+const loginEmail = async (email)=> {
+    const userSearch = await User.findOne({where: {email: email}});
+    return userSearch
+}
+
+module.exports = {addNewUser,loginEmail,loginUser};

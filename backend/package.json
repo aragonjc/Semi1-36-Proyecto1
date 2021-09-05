@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@stdlib/assert-is-email-address": "0.0.7",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.2",
     "dotenv": "^10.0.0",
