@@ -16,4 +16,14 @@ const loginEmail = async (email)=> {
     return userSearch
 }
 
-module.exports = {addNewUser,loginEmail,loginUser};
+const exitsUser = async (nickname,email)=> {
+    const checkUser = await User.findOne({where: {nickname:nickname}})
+    const checkEmail = await User.findOne({where: {email:email}})
+    
+    if(!checkUser && !checkEmail){
+        return false;
+    }
+    return true;
+}
+
+module.exports = {addNewUser,loginEmail,loginUser,exitsUser};

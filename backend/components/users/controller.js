@@ -10,18 +10,23 @@ const signup =  (username,email,password,photourl) => {
             reject('Los datos son incorrectos');
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(password, salt);
-        
-        const userId = store.addNewUser(username,email,hashPassword,photourl);
+        const existsUser = await store.exitsUser(username,email);
+        if(existsUser) {
+            reject('El usuario ya existe');
+        } else {
 
-        resolve({
-            userId,
-            username,
-            email,
-            photourl
-        })
+            const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(password, salt);
+            
+            const userId = store.addNewUser(username,email,hashPassword,photourl);
 
+            resolve({
+                userId,
+                username,
+                email,
+                photourl
+            })
+        }
     });
 }
 
