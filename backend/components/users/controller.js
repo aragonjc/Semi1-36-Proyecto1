@@ -2,7 +2,7 @@ const store = require('./store')
 const bcrypt = require('bcryptjs');
 const chalk = require('chalk');
 const isEmail = require('@stdlib/assert-is-email-address' );
-//**create a function to check if the user alredy exists */
+
 const signup =  (username,email,password,photourl) => {
     return new Promise( async (resolve,reject)=> {
         if(!username || !email || !password || !photourl ) {
