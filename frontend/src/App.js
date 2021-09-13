@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import SignUp from './components/SignUp'
+import SignIn from './components/SignIn';
 import './App.css';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <Router>
       <Switch>
         <Route path='/signup' exact component={SignUp} />
+        <Route path='/signin' exact component={SignIn} />
       </Switch>
     </Router>
   );
