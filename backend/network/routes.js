@@ -1,5 +1,6 @@
-const express = require('express')
-const users = require('../components/users/network')
+const express = require('express');
+const users = require('../components/users/network');
+const photo = require('../components/files/network');
 
 const router = express.Router();
 
@@ -9,5 +10,6 @@ router.route('/')
 })
 
 router.use('/auth',users);
+router.use('/photo',photo);
 
 module.exports = router;

@@ -4,10 +4,17 @@ const config = require('./config/config')
 const routes = require('./network/routes');
 const sequelize = require('./db/db')
 const chalk = require('chalk');
+const cors = require('cors')
 
 const app = express();
+global.__basedir = __dirname;
 
-app.use(express.urlencoded());
+const corsOptions = {
+  origin: "http://localhost:3000"
+};
+
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(routes)
@@ -20,4 +27,4 @@ app.listen(config.app.port,async ()=> {
       } catch (error) {
         console.error(chalk.black.bgRed('Unable to connect to the database:', error));
     }
-})
+});
