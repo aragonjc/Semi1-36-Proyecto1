@@ -458,25 +458,4 @@ margin-top: 10px;
 	position: absolute;
 	z-index: -1;
 }
-/*
-.inputfile + label {
-    font-size: 1.15em;
-    font-weight: 700;
-    color: white;
-    background-color: red;
-    display: inline-block;
-    cursor: pointer;
-    padding-left: 19px;
-    padding-right: 19px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 10px;
-}
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: red;
-    outline: 1px dotted #000;
-	outline: -webkit-focus-ring-color auto 5px;
-}
-*/

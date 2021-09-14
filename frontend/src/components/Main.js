@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createElement } from "react";
 import './resources/css-file-icons.css'
 import './resources/Main.css'
 import http from "../http/http-commons";
@@ -6,14 +6,25 @@ import http from "../http/http-commons";
 class Main extends React.Component {
     constructor(props) {
         super(props)
+        this.uploadWindow = this.uploadWindow.bind(this);
+        this.state = {
+
+        }
     }
+
+    uploadWindow() {
+
+        this.props.history.push('/upload')
+    }    
 
     render() {
         if(!localStorage.getItem('auth-token')) {
             this.props.history.push('/signin')
         } else {
             const token = localStorage.getItem('auth-token');
-            //http.post('/files/all',{token:token})
+            http.post('/files/all',{token:token})
+            .then(response=>console.log(response.data))
+            .catch(err=>console.log(err));
         }
         return (
             <>
@@ -28,10 +39,8 @@ class Main extends React.Component {
                                 <div className="upload-btn">
                                     <div className="btn-g">
                                         <label>
-                                            <div className="btn-btn">
-                                                <input type="file" name="file" id="file"  className="uploadfile" />
-                                                <label htmlFor="file">Upload</label>
-                                                
+                                            <div className="btn-btn" onClick={this.uploadWindow}>
+                                                Upload
                                             </div>
                                         </label>
                                     </div>
@@ -40,8 +49,8 @@ class Main extends React.Component {
                                     <div className="files-content">
                                         <div className="files-content-main">
                                             <ul>
-                                            <li className="active"><a href="#">Archivos Privados</a></li>
-                                            <li><a href="#">Archivos Publicos</a></li>
+                                            <li className="active"><a>Archivos Privados</a></li>
+                                            <li><a>Archivos Publicos</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -85,7 +94,8 @@ class Main extends React.Component {
                         </div>
                     </div>
                     
-                    <div className="main">
+                    <div id="main-file" className="main">
+                        
 			<div className="files-view">
 				<div className="file-list">
 					<div className="row">
@@ -186,7 +196,7 @@ class Main extends React.Component {
 					</div>
 				</div>
 			</div>
-		</div>
+		    </div>
 	            </div>
             </>
         );

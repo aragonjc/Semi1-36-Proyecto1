@@ -10,6 +10,6 @@ router.route('/')
 })
 
 router.use('/auth',users);
-router.use('/files/all',files);
+router.use('/files',files);
 
 module.exports = router;
