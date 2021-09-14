@@ -2,6 +2,8 @@ const store = require('./store')
 const bcrypt = require('bcryptjs');
 const chalk = require('chalk');
 const isEmail = require('@stdlib/assert-is-email-address' );
+const jwt = require('jsonwebtoken')
+const config = require('../../config/config')
 
 const signup =  (username,email,password,photourl) => {
     return new Promise( async (resolve,reject)=> {
@@ -57,7 +59,12 @@ const signin = (userCredential, password) => {
                     email:response.dataValues.email,
                     photo:response.dataValues.photo
                 }
-                resolve(usr)
+                const token = jwt.sign({_id:response.dataValues.id},config.jwt.tokenSecret)
+                const res = {
+                    usr:usr,
+                    token:token
+                }
+                resolve(res)
             } else {
                 reject(`${responseMsg} o contraseña incorrecta`);
             }

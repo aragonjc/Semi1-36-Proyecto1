@@ -26,6 +26,7 @@ class SignIn extends React.Component {
 
         http.post('/auth/signin',loginInfo)
             .then(response => {
+                localStorage.setItem("auth-token",response.data.body.token)
                 this.props.history.push("/");
             })
             .catch(err => document.getElementById('msg').textContent = err.response.data.error);
