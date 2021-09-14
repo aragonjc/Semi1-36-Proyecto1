@@ -1,8 +1,7 @@
 import React from "react";
 import './resources/signup.css'
-import UploadService from '../services/upload-photo';
+import UploadService from '../services/upload-file';
 import http from "../http/http-commons";
-import { withRouter } from "react-router-dom";
 
 class SignUp extends React.Component {
 

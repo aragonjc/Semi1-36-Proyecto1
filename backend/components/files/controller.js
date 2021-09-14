@@ -20,7 +20,7 @@ const uploadPhoto = (req,res) => {
             Bucket: config.aws.bucket,
             Body: fs.createReadStream(req.file.path),
             ContentType: req.file.mimetype,
-            Key: `userFile/${req.file.originalname}`
+            Key: `userImg/${req.file.originalname}`
         };
 
         s3.upload(params, (err, data) => {

@@ -4,7 +4,7 @@ class UploadFilesService {
     upload(file, onUploadProgress) {
         let formData = new FormData();
         formData.append("file", file);
-        return http.post("/photo/upload", formData, {
+        return http.post("/files/upload", formData, {
             headers: {
             "Content-Type": "multipart/form-data",
             },

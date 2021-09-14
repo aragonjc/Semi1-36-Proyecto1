@@ -14,5 +14,9 @@ router.post('/upload',
                 .catch(err => res.status(500).send({error:err}))
 });
 
+router.post('/all',(req,res) => {
+
+});
+
 
 module.exports = router;
