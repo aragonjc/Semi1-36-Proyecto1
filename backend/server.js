@@ -10,7 +10,8 @@ const app = express();
 global.__basedir = __dirname;
 
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3000",
+  methods: ['GET', 'PUT', 'POST']
 };
 
 app.use(cors(corsOptions));

@@ -15,6 +15,9 @@ const config = {
         secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY,
         region: process.env.AWS_REGION,
         bucket: process.env.AWS_BUCKET
+    },
+    jwt: {
+        tokenSecret: process.env.TOKEN_SECRET
     }
 }
 
