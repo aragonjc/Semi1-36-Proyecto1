@@ -67,6 +67,8 @@ const uploadFile = (req,res) => {
             }
 
             if (data) {
+                console.error(chalk.bgBlue('[FileControllerAWS] Archivo subido correctamente', err));
+                
                 fs.unlinkSync(req.file.path);
                 resolve(data.Location)
             }
@@ -75,7 +77,27 @@ const uploadFile = (req,res) => {
     })
 }
 
+const saveFile = (nombre,url,fecha,extension,private,usuario,disable) => {
+    return new Promise(async (resolve,reject) => {
+        
+        if(!nombre || !url || !fecha || !extension || private === undefined || !usuario || disable === undefined) {
+            console.error(chalk.bgRed('[FileController] datos nulos'));
+            return reject('Los datos son incorrectos')
+        }
+
+        const result = await store.addNewFile(nombre,url,fecha,extension,private,usuario,disable);
+        
+        if(result) {
+            resolve('El archivo se subio correctamente')
+        } else {
+            reject('Error al subir el archivo')
+        }
+
+    });
+}
+
 module.exports = {
     uploadPhoto,
-    uploadFile
+    uploadFile,
+    saveFile
 }

@@ -12,20 +12,24 @@ class Main extends React.Component {
         }
     }
 
+	componentDidMount() {
+        if(!localStorage.getItem('auth-token')) {
+            this.props.history.push('/signin')
+        } else {
+            const token = localStorage.getItem('auth-token');
+            http.post('/auth/check',{token:token})
+            .then(response=>this.setState({_id:response.data._id}))
+            .catch(err=>this.props.history.push('/signin'));
+            
+        }
+    }
+
     uploadWindow() {
 
         this.props.history.push('/upload')
     }    
 
     render() {
-        if(!localStorage.getItem('auth-token')) {
-            this.props.history.push('/signin')
-        } else {
-            const token = localStorage.getItem('auth-token');
-            http.post('/files/all',{token:token})
-            .then(response=>console.log(response.data))
-            .catch(err=>console.log(err));
-        }
         return (
             <>
                 <div className="container">

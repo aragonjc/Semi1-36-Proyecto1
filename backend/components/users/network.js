@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('./controller');
+const validatetoken = require('../../util/validatetoken');
 
 const router = express.Router();
 
@@ -13,6 +14,10 @@ router.post('/signin',(req,res)=> {
     controller.signin(req.body.user,req.body.password)
         .then(response => res.status(200).send({error:'',body:response}))
         .catch(e=>res.status(500).send({error:e,body:''}))
+})
+
+router.post('/check',validatetoken,(req,res)=>{
+    res.status(200).send(req.user)
 })
 
 module.exports = router;
