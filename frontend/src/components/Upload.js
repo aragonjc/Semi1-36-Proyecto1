@@ -74,14 +74,29 @@ class Upload extends React.Component {
                         
                         document.getElementById("msg").textContent = res.data.body;
                         document.getElementById("msg").className = "green";
+                        document.getElementById("file").value = "";
+                        document.getElementById("file-path-id").textContent = "";
+                        document.getElementById("filename").value = "";
+                        document.getElementById("file-type").value = "";
+                        document.getElementById("password").value = "";
+                        document.getElementById("upload-btn").textContent = "Subir Archivo"
+
                         setTimeout(() => {
                             document.getElementById("msg").textContent = "";
                             document.getElementById("msg").className = "";
                         }, 2500);
                     })
                     .catch(err=> {
+
                         document.getElementById("msg").textContent = err.data.error;
                         document.getElementById("msg").className = "red";
+                        document.getElementById("file").value = "";
+                        document.getElementById("file-path-id").textContent = "";
+                        document.getElementById("filename").value = "";
+                        document.getElementById("file-type").value = "";
+                        document.getElementById("password").value = "";
+                        document.getElementById("upload-btn").textContent = "Subir Archivo"
+
                         setTimeout(() => {
                             document.getElementById("msg").textContent = "";
                             document.getElementById("msg").className = "";
