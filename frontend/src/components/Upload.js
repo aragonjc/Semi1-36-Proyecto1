@@ -30,88 +30,106 @@ class Upload extends React.Component {
         
     }
 
-    upload() {
+    async upload() {
         //Verificar password primero
+        //verificar que ningun campo este vacio
+
+        const inputPassword = document.getElementById("password").value;
+        if(!inputPassword) {
+            return;
+        }
+
+        const token = localStorage.getItem('auth-token');
+        const validation = await http.post('/auth/password',{token:token,id:this.state._id,password:inputPassword}).then(res=>res).catch(err=>err);
         
-        let fileStatus = document.getElementById("file"); 
-        if(fileStatus.files.length !== 0) {
-            let currentFile = this.state.selectedFiles[0];
+        if(validation.data.body) {    
+            let fileStatus = document.getElementById("file"); 
+            if(fileStatus.files.length !== 0) {
+                let currentFile = this.state.selectedFiles[0];
 
-            const filenameInput = document.getElementById("filename").value;
-            const Private = document.getElementById("file-type").value;
-            const filename = fileStatus.files[0].name;
-            const extention = fileExtension(filename);
+                const filenameInput = document.getElementById("filename").value;
+                const Private = document.getElementById("file-type").value;
+                const filename = fileStatus.files[0].name;
+                const extention = fileExtension(filename);
 
-            const fileInfo = {
-                nombre:filenameInput,
-                extension:extention,
-                private:Boolean(Private),
-                disable:false,
-                usuario:this.state._id,
-            }
+                const fileInfo = {
+                    nombre:filenameInput,
+                    extension:extention,
+                    private:Boolean(Private),
+                    disable:false,
+                    usuario:this.state._id,
+                }
 
-            
-            UploadService.uploadFile(currentFile,localStorage.getItem('auth-token'),(event) => {
-                this.setState({
-                    progress: Math.round((100 * event.loaded) / event.total),
-                });
-            })
-            .then((response) => {
                 
-                this.setState({
-                
-                selectedFiles: undefined,
-                currentFile: undefined,
-                
+                UploadService.uploadFile(currentFile,localStorage.getItem('auth-token'),(event) => {
+                    this.setState({
+                        progress: Math.round((100 * event.loaded) / event.total),
+                    });
+                })
+                .then((response) => {
+                    
+                    this.setState({
+                    
+                    selectedFiles: undefined,
+                    currentFile: undefined,
+                    
 
-                });
-
-                fileInfo.url = response.data.url
-                fileInfo.fecha = new Date();
-
-                http.post('/files/register',fileInfo)
-                    .then(res=> {
-                        
-                        document.getElementById("msg").textContent = res.data.body;
-                        document.getElementById("msg").className = "green";
-                        document.getElementById("file").value = "";
-                        document.getElementById("file-path-id").textContent = "";
-                        document.getElementById("filename").value = "";
-                        document.getElementById("file-type").value = "";
-                        document.getElementById("password").value = "";
-                        document.getElementById("upload-btn").textContent = "Subir Archivo"
-
-                        setTimeout(() => {
-                            document.getElementById("msg").textContent = "";
-                            document.getElementById("msg").className = "";
-                        }, 2500);
-                    })
-                    .catch(err=> {
-
-                        document.getElementById("msg").textContent = err.data.error;
-                        document.getElementById("msg").className = "red";
-                        document.getElementById("file").value = "";
-                        document.getElementById("file-path-id").textContent = "";
-                        document.getElementById("filename").value = "";
-                        document.getElementById("file-type").value = "";
-                        document.getElementById("password").value = "";
-                        document.getElementById("upload-btn").textContent = "Subir Archivo"
-
-                        setTimeout(() => {
-                            document.getElementById("msg").textContent = "";
-                            document.getElementById("msg").className = "";
-                        }, 2500);
                     });
 
-            })
-            .catch(() => {
-                this.setState({
-                    progress: 0,
-                    message: "Could not upload the file!",
-                    currentFile: undefined,
+                    fileInfo.url = response.data.url
+                    fileInfo.fecha = new Date();
+
+                    http.post('/files/register',fileInfo)
+                        .then(res=> {
+                            
+                            document.getElementById("msg").textContent = res.data.body;
+                            document.getElementById("msg").className = "green";
+                            document.getElementById("file").value = "";
+                            document.getElementById("file-path-id").textContent = "";
+                            document.getElementById("filename").value = "";
+                            document.getElementById("file-type").value = "";
+                            document.getElementById("password").value = "";
+                            document.getElementById("upload-btn").textContent = "Subir Archivo"
+
+                            setTimeout(() => {
+                                document.getElementById("msg").textContent = "";
+                                document.getElementById("msg").className = "";
+                            }, 2500);
+                        })
+                        .catch(err=> {
+
+                            document.getElementById("msg").textContent = err.data.error;
+                            document.getElementById("msg").className = "red";
+                            document.getElementById("file").value = "";
+                            document.getElementById("file-path-id").textContent = "";
+                            document.getElementById("filename").value = "";
+                            document.getElementById("file-type").value = "";
+                            document.getElementById("password").value = "";
+                            document.getElementById("upload-btn").textContent = "Subir Archivo"
+
+                            setTimeout(() => {
+                                document.getElementById("msg").textContent = "";
+                                document.getElementById("msg").className = "";
+                            }, 2500);
+                        });
+
+                })
+                .catch(() => {
+                    this.setState({
+                        progress: 0,
+                        message: "Could not upload the file!",
+                        currentFile: undefined,
+                    });
                 });
-            });
-            
+                
+            }
+        } else {
+            document.getElementById("msg").textContent = "Contraseña incorrecta";
+            document.getElementById("msg").className = "red";
+            setTimeout(() => {
+                document.getElementById("msg").textContent = "";
+                document.getElementById("msg").className = "";
+            }, 2500);
         }
     }
 

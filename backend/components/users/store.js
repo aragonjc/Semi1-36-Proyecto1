@@ -26,4 +26,9 @@ const exitsUser = async (nickname,email)=> {
     return true;
 }
 
-module.exports = {addNewUser,loginEmail,loginUser,exitsUser};
+const getUser = async (id) => {
+    const user = await User.findOne({where:{id:id}});
+    return user;
+}
+
+module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser};

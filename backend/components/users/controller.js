@@ -72,7 +72,32 @@ const signin = (userCredential, password) => {
     });
 }
 
+const checkPassword = (userId,password) => {
+    return new Promise(async (resolve,reject) =>{
+        if(!userId || !password) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+    
+        const user = await store.getUser(userId);
+    
+        if(!user) {
+            reject('El usuario es incorrecto')
+        } else {
+            const validPassword = await bcrypt.compare(password,user.dataValues.password);
+            if (validPassword)
+                resolve(true);
+            else
+                resolve(false)
+        }
+    });
+    
+    
+
+}
+
 module.exports = {
     signup,
-    signin
+    signin,
+    checkPassword
 };
