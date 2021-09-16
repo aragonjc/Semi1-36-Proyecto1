@@ -6,12 +6,14 @@ import Main from './components/Main';
 import Upload from './components/Upload';
 import Edit from './components/Edit';
 import Delete from './components/Delete';
+import Amigos from './components/Amigos';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path='/' exact component={Main} />
+        <Route path='/friends' exact component={Amigos} />
         <Route path='/signup' exact component={SignUp} />
         <Route path='/signin' exact component={SignIn} />
         <Route path='/upload' exact component={Upload} />

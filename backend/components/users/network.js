@@ -32,4 +32,10 @@ router.post('/all',(req,res) => {
         .catch(error => res.status(500).send({error:error,body:''}));
 });
 
+router.post('/addfriend',(req,res) => {
+    controller.addFriend(req.body.userId,req.body.friendId)
+        .then(response => res.status(200).send({error:'',body:response}))
+        .catch(error => res.status(500).send({error:error,body:''}));
+});
+
 module.exports = router;

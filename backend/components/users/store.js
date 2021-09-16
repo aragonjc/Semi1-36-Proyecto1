@@ -1,4 +1,5 @@
 const User = require('./model')
+const Friend = require('./model_friend')
 
 const addNewUser = async (username,email,password,photoUrl)=> {
     const user = await User.create({ nickname: username, email: email, password:password, photo:photoUrl });
@@ -36,4 +37,9 @@ const getUsers = async () => {
     return users
 }
 
-module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser,getUsers};
+const addFriend = async (userId,friendId) => {
+    const addedFriend = await Friend.create({usuario:userId,amigo:friendId});
+    return addedFriend;
+}
+
+module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser,getUsers,addFriend};
