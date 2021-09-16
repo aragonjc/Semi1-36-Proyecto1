@@ -2,6 +2,8 @@ import React, { createElement } from "react";
 import './resources/css-file-icons.css'
 import './resources/Main.css'
 import http from "../http/http-commons";
+import { Link } from "react-router-dom";
+
 
 class Main extends React.Component {
     constructor(props) {
@@ -161,8 +163,8 @@ class Main extends React.Component {
 															{this.state.files &&
 																
 																this.state.files.map((file,index) => {
-																	return (<tr  key={index} accesskey={index} onClick={this.showFile}>
-																		<td >
+																	return (<tr  key={index} >
+																		<td accesskey={index} onClick={this.showFile}>
 																			<div className="td-file">
 																				<div className={"fi "+"fi-" + file.extension +" file-icon fi-round-md fi-size-xs"}>
 																					<div className="fi-content fi-round-md">{file.extension}</div>
@@ -175,7 +177,7 @@ class Main extends React.Component {
 																		<td>Me</td>
 																		<td>{file.fecha}</td>
 																		<td></td>
-																		<td></td>
+																		<td ><Link class="edit-file-btn" id="id-edit-file-btn" to={'/edit/'+ file.id }>Editar</Link><a class="delete-file-btn" id="id-delete-file-btn">Eliminar</a></td>
 																	</tr>)
 																})														
 															}						

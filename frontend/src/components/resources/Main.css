@@ -506,3 +506,30 @@ margin-top: 10px;
 	z-index: -1;
 }
 
+.edit-file-btn {
+    margin-right: 15px;
+    color:#535f6b;
+}
+
+.delete-file-btn {
+    color:#535f6b;
+}
+
+.edit-file-btn:hover,.edit-file-btn:focus {
+    color:#8f93f6 ;
+    cursor: pointer;
+}
+
+.delete-file-btn:hover,.delete-file-btn:focus {
+    color:#8f93f6 ;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+

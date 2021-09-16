@@ -113,9 +113,44 @@ const getAllPrivateFiles = (userId) => {
     })
 }
 
+const getFile = (fileId) => {
+
+    return new Promise(async (resolve,reject) => {
+        if(!fileId) {
+            console.error(chalk.bgRed('[FileController] datos nulos'));
+            return reject('EL id del usuario no es correcto')
+        }
+
+        const file = await store.getFile(fileId);
+        if(file) {
+            resolve(file);
+        } else {
+            reject('Error al obtener el archivo');
+        }
+    })
+}
+
+const modifyFile = (fileId,updateValues) => {
+    return new Promise(async (resolve,reject) => {
+        if(!fileId || !updateValues) {
+            console.error(chalk.bgRed('[FileController] datos nulos'));
+            return reject('Los datos son invalidos')
+        }
+    
+        const file = await store.updateFile(fileId,updateValues);
+        if(file) {
+            resolve(file)
+        } else {
+            reject('Error al actualizar estado del archivo')
+        }
+    });
+}
+
 module.exports = {
     uploadPhoto,
     uploadFile,
     saveFile,
-    getAllPrivateFiles
+    getAllPrivateFiles,
+    getFile,
+    modifyFile
 }

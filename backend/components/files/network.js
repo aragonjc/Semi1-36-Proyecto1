@@ -39,5 +39,18 @@ router.post('/register',(req,res) => {
         .catch(err => res.status(500).send({error:err, body:''}));
 });
 
+router.post('/getfile',(req,res) => {
+
+    controller.getFile(req.body.fileId)
+        .then(response => res.status(200).send({error:'',body:response}))
+        .catch(err => res.status(500).send({error:err,body:''}));
+});
+
+router.post('/modify',(req,res) => {
+    
+    controller.modifyFile(req.body.fileId,req.body.updateValues)
+        .then(response => res.status(200).send({error:'',body:response}))
+        .catch(err => res.status(500).send({error:err,body:''}));
+});
 
 module.exports = router;

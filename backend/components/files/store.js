@@ -10,4 +10,14 @@ const getFiles = async (userId) => {
     return files;
 }
 
-module.exports = {addNewFile,getFiles}
+const getFile = async (fileId) => {
+    const file = await File.findOne({where:{id:fileId}});
+    return file;
+}
+
+const updateFile = async (fileId,updateValues) => {
+    const file = await File.update(updateValues,{where:{id:fileId}});
+    return file;
+}
+
+module.exports = {addNewFile,getFiles,getFile,updateFile}
