@@ -5,4 +5,9 @@ const addNewFile = async (nombre,url,fecha,extension,private,usuario,disable)=> 
     return file.id;
 }
 
-module.exports = {addNewFile}
+const getFiles = async (userId) => {
+    const files = await File.findAll({where:{usuario:userId,private:true,disable:false}});
+    return files;
+}
+
+module.exports = {addNewFile,getFiles}

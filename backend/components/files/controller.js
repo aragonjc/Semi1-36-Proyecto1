@@ -96,8 +96,26 @@ const saveFile = (nombre,url,fecha,extension,private,usuario,disable) => {
     });
 }
 
+const getAllPrivateFiles = (userId) => {
+    return new Promise(async (resolve,reject) => {
+
+        if(!userId) {
+            console.error(chalk.bgRed('[FileController] datos nulos'));
+            return reject('EL id del usuario no es correcto')
+        }
+
+        const files = await store.getFiles(userId);
+        if(files) {
+            resolve(files);
+        } else {
+            reject('Error no esperado')
+        }
+    })
+}
+
 module.exports = {
     uploadPhoto,
     uploadFile,
-    saveFile
+    saveFile,
+    getAllPrivateFiles
 }

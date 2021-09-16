@@ -25,8 +25,11 @@ router.post('/upload/file',validatetoken,
         .catch(err=>res.status(500).send({error:err,body:''}))
 })
 
-router.post('/all',validatetoken,(req,res) => {
-    res.send(req.user)
+router.post('/allprivate',validatetoken,(req,res) => {
+    
+    controller.getAllPrivateFiles(req.body.userId)
+        .then(response => res.status(200).send({error:'', body:response}))
+        .catch(err => res.status(500).send({error:err,body:''}))
 });
 
 router.post('/register',(req,res) => {

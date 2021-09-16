@@ -55,7 +55,7 @@ class Upload extends React.Component {
                 const fileInfo = {
                     nombre:filenameInput,
                     extension:extention,
-                    private:Boolean(Private),
+                    private:Private,
                     disable:false,
                     usuario:this.state._id,
                 }
@@ -171,8 +171,8 @@ class Upload extends React.Component {
                                     <label htmlFor="file-type" className="file-type-lbl">Tipo de Archivo:</label>
                                     <select name="type" id="file-type">
                                         <option value="">--Seleccione una opción--</option>
-                                        <option value="false">Publico</option>
-                                        <option value="true">Privado</option>
+                                        <option value="0">Publico</option>
+                                        <option value="1">Privado</option>
                                     </select>
                                 </div>
                                 <div className="file-password">

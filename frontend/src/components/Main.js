@@ -7,8 +7,10 @@ class Main extends React.Component {
     constructor(props) {
         super(props)
         this.uploadWindow = this.uploadWindow.bind(this);
+		this.showFile = this.showFile.bind(this);
+		this.closeFileWindow = this.closeFileWindow.bind(this);
         this.state = {
-
+			files:undefined
         }
     }
 
@@ -18,7 +20,17 @@ class Main extends React.Component {
         } else {
             const token = localStorage.getItem('auth-token');
             http.post('/auth/check',{token:token})
-            .then(response=>this.setState({_id:response.data._id}))
+            .then(response=> {
+				this.setState({_id:response.data._id});
+				http.post('/files/allprivate',{token:token, userId:response.data._id})
+				.then( (res)=>{
+					console.log(res.data.body);
+					 this.setState({
+						files:res.data.body
+					})
+				})
+				.catch(err=>console.log(err))
+			})
             .catch(err=>this.props.history.push('/signin'));
             
         }
@@ -29,7 +41,23 @@ class Main extends React.Component {
         this.props.history.push('/upload')
     }    
 
+	showFile(event) {
+		const index = Number(event.currentTarget.attributes['accesskey'].value)
+		const url = this.state.files[index].url
+		document.getElementById('embeded-file').src = url;
+		console.log(url)
+		document.getElementById('id-file-preview').className="file-preview"
+	}
+
+	closeFileWindow(event) {
+		document.getElementById('id-file-preview').className="file-preview file-disable"
+		document.getElementById('embeded-file').src ="";
+	}
+
     render() {
+	
+	
+
         return (
             <>
                 <div className="container">
@@ -99,108 +127,70 @@ class Main extends React.Component {
                     </div>
                     
                     <div id="main-file" className="main">
-                        
-			<div className="files-view">
-				<div className="file-list">
-					<div className="row">
-						<div className="cols">
-							<div className="full-card">
-								<div className="card">
-									<div className="table-responsive">
-										<table>
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Owner</th>
-													<th>Update Date</th>
-													<th>File size</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-		                                            <td>
-		                                            	<div className="td-file">
-			                                            	<div className="fi fi-doc file-icon fi-round-md fi-size-xs">
-	    														<div className="fi-content fi-round-md">doc</div>
-															</div>
-															<div className="filename">
-																File.txt
-															</div>
-		                                            	</div>
-		                                            	
-		                                                
-		                                            </td>
-		                                            <td>Me</td>
-		                                            <td>Mar 30, 2020 Gail Forcewind</td>
-		                                            <td>10 MB</td>
-		                                            <td>
-		                                            </td>
-                                        		</tr>
-
-                                        		<tr>
-		                                            <td>
-		                                                <div className="td-file">
-			                                            	<div className="fi fi-xlsx file-icon fi-round-md fi-size-xs">
-	    														<div className="fi-content fi-round-md">xlsx</div>
-															</div>
-															<div className="filename">
-																File.txt
-															</div>
-		                                            	</div>
-		                                            </td>
-		                                            <td>Me</td>
-		                                            <td>Mar 30, 2020 Gail Forcewind</td>
-		                                            <td>10 MB</td>
-		                                            <td>
-		                                            </td>
-                                        		</tr>
-
-                                        		<tr>
-		                                            <td>
-		                                                <div className="td-file">
-			                                            	<div className="fi fi-svg file-icon fi-round-md fi-size-xs">
-	    														<div className="fi-content fi-round-md">svg</div>
-															</div>
-															<div className="filename">
-																File.txt
-															</div>
-		                                            	</div>
-		                                            </td>
-		                                            <td>Me</td>
-		                                            <td>Mar 30, 2020 Gail Forcewind</td>
-		                                            <td>10 MB</td>
-		                                            <td>
-		                                            </td>
-                                        		</tr>
-
-                                        		<tr>
-		                                            <td>
-		                                                <div className="td-file">
-			                                            	<div className="fi fi-rb file-icon fi-round-md fi-size-xs">
-	    														<div className="fi-content fi-round-md">pdf</div>
-															</div>
-															<div className="filename">
-																File.txt
-															</div>
-		                                            	</div>
-		                                            </td>
-		                                            <td>Me</td>
-		                                            <td>Mar 30, 2020 Gail Forcewind</td>
-		                                            <td>10 MB</td>
-		                                            <td>
-		                                            </td>
-                                        		</tr>
-											</tbody>
-										</table>
+						
+						<div className="file-preview file-disable" id="id-file-preview">
+							<div className="file-box">
+								<div className="file-box-def">
+									<span onClick={this.closeFileWindow}>X</span>
+									<div>
+									<iframe id="embeded-file" src="" width="100%" height="499"></iframe>
 									</div>
 								</div>
 							</div>
 						</div>
+						
+						<div className="files-view">
+							<div className="file-list">
+								<div className="row">
+									<div className="cols">
+										<div className="full-card">
+											<div className="card">
+												<div className="table-responsive">
+													<table>
+														<thead>
+															<tr>
+																<th>Name</th>
+																<th>Owner</th>
+																<th>Update Date</th>
+																<th>File size</th>
+																<th></th>
+															</tr>
+														</thead>
+														<tbody>
+															
+															{this.state.files &&
+																
+																this.state.files.map((file,index) => {
+																	return (<tr  key={index} accesskey={index} onClick={this.showFile}>
+																		<td >
+																			<div className="td-file">
+																				<div className={"fi "+"fi-" + file.extension +" file-icon fi-round-md fi-size-xs"}>
+																					<div className="fi-content fi-round-md">{file.extension}</div>
+																				</div>
+																				<div className="filename">
+																					{file.nombre}
+																				</div>
+																			</div>
+																		</td>
+																		<td>Me</td>
+																		<td>{file.fecha}</td>
+																		<td></td>
+																		<td></td>
+																	</tr>)
+																})														
+															}						
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		    		
+						
 					</div>
-				</div>
-			</div>
-		    </div>
 	            </div>
             </>
         );
