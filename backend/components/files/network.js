@@ -53,4 +53,11 @@ router.post('/modify',(req,res) => {
         .catch(err => res.status(500).send({error:err,body:''}));
 });
 
+router.post('/getFilesCount', (req,res) => {
+
+    controller.getNumOfFiles(req.body.userId)
+        .then(response => res.status(200).send({result:response}))
+        .catch(err => res.status(500).send({err:err}));
+});
+
 module.exports = router;

@@ -5,6 +5,7 @@ import SignIn from './components/SignIn';
 import Main from './components/Main';
 import Upload from './components/Upload';
 import Edit from './components/Edit';
+import Delete from './components/Delete';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/signin' exact component={SignIn} />
         <Route path='/upload' exact component={Upload} />
         <Route path="/edit/:id" exact component={Edit}/>
+        <Route path="/delete/:id" exact component={Delete}/>
       </Switch>
     </Router>
   );

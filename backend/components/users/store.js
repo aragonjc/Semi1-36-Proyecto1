@@ -31,4 +31,9 @@ const getUser = async (id) => {
     return user;
 }
 
-module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser};
+const getUsers = async () => {
+    const users = await User.findAll({attributes: {exclude: ['password','photo']}});
+    return users
+}
+
+module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser,getUsers};

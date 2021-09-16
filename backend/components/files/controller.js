@@ -146,11 +146,30 @@ const modifyFile = (fileId,updateValues) => {
     });
 }
 
+const getNumOfFiles = (userId) => {
+    return new Promise(async (resolve,reject) => {
+    
+        const file = await store.getNumberOFiles();
+        if(file) {
+            
+            const fileList = file.filter(file=>{
+                if(file.usuario != userId) {
+                    return file;
+                }
+            })
+            resolve(fileList)
+        } else {
+            reject('Error al obtener los archivos')
+        }
+    });
+}
+
 module.exports = {
     uploadPhoto,
     uploadFile,
     saveFile,
     getAllPrivateFiles,
     getFile,
-    modifyFile
+    modifyFile,
+    getNumOfFiles
 }

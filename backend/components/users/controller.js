@@ -91,13 +91,32 @@ const checkPassword = (userId,password) => {
                 resolve(false)
         }
     });
-    
-    
+}
 
+const getAllUsers = (userId) => {
+    return new Promise(async (resolve,reject) =>{
+        if(!userId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const users = await store.getUsers(userId);
+        if(users) {
+            const userList = users.filter(user=>{
+                if(user.id != userId) {
+                    return user;
+                }
+            })
+            resolve(userList);
+        } else {
+            reject('No se pudo accesar a los usuarios')
+        }
+    });
 }
 
 module.exports = {
     signup,
     signin,
-    checkPassword
+    checkPassword,
+    getAllUsers
 };

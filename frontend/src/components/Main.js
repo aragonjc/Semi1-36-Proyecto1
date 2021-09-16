@@ -177,7 +177,7 @@ class Main extends React.Component {
 																		<td>Me</td>
 																		<td>{file.fecha}</td>
 																		<td></td>
-																		<td ><Link class="edit-file-btn" id="id-edit-file-btn" to={'/edit/'+ file.id }>Editar</Link><a class="delete-file-btn" id="id-delete-file-btn">Eliminar</a></td>
+																		<td ><Link class="edit-file-btn" id="id-edit-file-btn" to={'/edit/'+ file.id }>Editar</Link><Link to={'/delete/' + file.id} class="delete-file-btn" id="id-delete-file-btn">Eliminar</Link></td>
 																	</tr>)
 																})														
 															}						

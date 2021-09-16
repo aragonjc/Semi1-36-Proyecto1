@@ -1,4 +1,5 @@
 const File = require('./model');
+const Sequelize = require('sequelize')
 
 const addNewFile = async (nombre,url,fecha,extension,private,usuario,disable)=> {
     const file = await File.create({ nombre:nombre, url:url, fecha:fecha, extension:extension, private:private, usuario:usuario, disable:disable });
@@ -20,4 +21,17 @@ const updateFile = async (fileId,updateValues) => {
     return file;
 }
 
-module.exports = {addNewFile,getFiles,getFile,updateFile}
+const getNumberOFiles = async () => {
+    const files = await File.findAll({
+        where:{private:false,disable:false},
+        group: ['usuario'],
+        attributes: ['usuario', [Sequelize.fn('COUNT', 'usuario'), 'count']],
+        /*order: [
+          [Sequelize.literal('count'), 'DESC']
+        ],*/
+        raw: true, // <-- HERE
+      })
+    return files;
+}
+
+module.exports = {addNewFile,getFiles,getFile,updateFile,getNumberOFiles}
