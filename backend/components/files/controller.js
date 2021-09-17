@@ -3,6 +3,7 @@ const aws = require('aws-sdk')
 const fs = require('fs')
 const chalk = require('chalk')
 const config = require('../../config/config')
+const UserStore = require('../users/store')
 
 const uploadPhoto = (req,res) => {
     return new Promise((resolve,reject) => {
@@ -164,6 +165,33 @@ const getNumOfFiles = (userId) => {
     });
 }
 
+const getPublicFiles = (users) => {
+    return new Promise(async (resolve,reject) => {
+
+        if(!users) {
+            console.error(chalk.bgRed('[FileController] datos nulos'));
+            return reject('Los datos son invalidos')
+        }
+
+        const files = await store.getPublicFiles(users);
+
+        if(files) {
+            const usersData = await UserStore.getUsersData(users);
+            if(usersData) {
+
+
+                resolve({files,usersData});
+            } else {
+                reject('No se pudo obtener los archivos');
+            }
+            
+        } else {
+            reject('No se pudo obtener los archivos');
+        }
+
+    });
+}
+
 module.exports = {
     uploadPhoto,
     uploadFile,
@@ -171,5 +199,6 @@ module.exports = {
     getAllPrivateFiles,
     getFile,
     modifyFile,
-    getNumOfFiles
+    getNumOfFiles,
+    getPublicFiles
 }

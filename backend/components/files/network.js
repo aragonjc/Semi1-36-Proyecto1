@@ -60,6 +60,12 @@ router.post('/getFilesCount', (req,res) => {
         .catch(err => res.status(500).send({err:err}));
 });
 
+router.post('/getpublicfiles', (req,res) => {
+
+    controller.getPublicFiles(req.body.users)
+        .then(response => res.status(200).send({result:response}))
+        .catch(err => res.status(500).send({err:err}))
+});
 
 
 module.exports = router;

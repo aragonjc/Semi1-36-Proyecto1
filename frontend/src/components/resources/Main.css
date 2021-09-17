@@ -83,6 +83,14 @@ div {
     color: #1C2137 !important;
 }
 
+.page-name a {
+    color: #1C2137 !important;
+}
+
+.page-name a:visited {
+    color: #1C2137 !important;
+}
+
 .upload-btn {
 	padding-top: 25px;
     border-top: 1px solid #f1f1f1;
@@ -156,6 +164,10 @@ div {
     display: list-item;
     text-align: -webkit-match-parent;
 
+}
+
+.files-content-main a {
+    cursor: pointer;
 }
 
 .files-view {
@@ -479,6 +491,15 @@ margin-top: 10px;
     text-decoration: none;
     background-color: transparent;
     padding: 0 0 0 12px;
+}
+
+.logout {
+    font-size: 14px !important;
+    cursor: pointer;
+}
+
+.logout:hover {
+    color: #8f93f6 ;
 }
 
 .user-info-last ul li a div {

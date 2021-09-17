@@ -1,6 +1,7 @@
 const DataTypes = require('sequelize');
 const sequelize = require('../../db/db');
 
+
 const File = sequelize.define('Archivo', {
     nombre: {
       type: DataTypes.STRING,
@@ -35,5 +36,7 @@ const File = sequelize.define('Archivo', {
         freezeTableName: true,
         tableName: 'Archivo'
   });
+
+
 
 module.exports = File;

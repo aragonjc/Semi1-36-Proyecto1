@@ -34,4 +34,12 @@ const getNumberOFiles = async () => {
     return files;
 }
 
-module.exports = {addNewFile,getFiles,getFile,updateFile,getNumberOFiles}
+const getPublicFiles = async (users) => {
+    const files = await File.findAll({
+        where:{usuario:users,private:false,disable:false},
+        
+    });
+    return files;
+}
+
+module.exports = {addNewFile,getFiles,getFile,updateFile,getNumberOFiles,getPublicFiles}

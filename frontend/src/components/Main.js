@@ -11,6 +11,7 @@ class Main extends React.Component {
         this.uploadWindow = this.uploadWindow.bind(this);
 		this.showFile = this.showFile.bind(this);
 		this.closeFileWindow = this.closeFileWindow.bind(this);
+        this.logout = this.logout.bind(this);
         this.state = {
 			files:undefined
         }
@@ -36,6 +37,11 @@ class Main extends React.Component {
             .catch(err=>this.props.history.push('/signin'));
             
         }
+    }
+
+    logout() {
+        localStorage.removeItem("auth-token");
+        this.props.history.push("/signin");
     }
 
     uploadWindow() {
@@ -66,7 +72,7 @@ class Main extends React.Component {
                     <div className="side">
                         <div className="side-wrap">
                             <div className="title-section">
-                                <h2 className="page-name">UStorage</h2>
+                                <h2 className="page-name"><Link to="/">UStorage</Link></h2>
                             </div>
 
                             <div className="nav-section">
@@ -83,8 +89,9 @@ class Main extends React.Component {
                                     <div className="files-content">
                                         <div className="files-content-main">
                                             <ul>
-                                            <li className="active"><a>Archivos Privados</a></li>
-                                            <li><a>Archivos Publicos</a></li>
+                                            <li className="active"><Link to='/'>Archivos Privados</Link></li>
+                                            <li><Link to='/public'>Archivos Publicos</Link></li>
+                                            <li><Link to='/friends'>Agregar Amigos</Link></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -111,8 +118,11 @@ class Main extends React.Component {
                                 </div>
                                 <div className="user-info">
                                     <div className="user-info-last">
+                                   <a className="logout" onClick={this.logout}>Cerrar Sesion</a>
                                         <ul>
+                                            
                                             <li>
+                                                
                                                 <a href="#">
                                                     <div>
                                                         P

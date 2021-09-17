@@ -7,6 +7,7 @@ import Upload from './components/Upload';
 import Edit from './components/Edit';
 import Delete from './components/Delete';
 import Amigos from './components/Amigos';
+import PrivateFiles from './components/PrivateFiles';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/signup' exact component={SignUp} />
         <Route path='/signin' exact component={SignIn} />
         <Route path='/upload' exact component={Upload} />
+        <Route path='/public' exact component={PrivateFiles} />
         <Route path="/edit/:id" exact component={Edit}/>
         <Route path="/delete/:id" exact component={Delete}/>
       </Switch>
