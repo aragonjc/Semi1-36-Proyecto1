@@ -18,6 +18,9 @@ const config = {
     },
     jwt: {
         tokenSecret: process.env.TOKEN_SECRET
+    },
+    cors: {
+        origin:process.env.CORS_ORIGIN
     }
 }
 
