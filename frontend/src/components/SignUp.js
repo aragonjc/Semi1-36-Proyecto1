@@ -22,6 +22,17 @@ class SignUp extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if(localStorage.getItem('auth-token')) {
+            const token = localStorage.getItem('auth-token');
+            http.post('/auth/check',{token:token})
+            .then(response=>{
+                this.props.history.push('/');
+            })
+            .catch(err=>err);
+        }
+    }
+
     handleSubmit(event) {
         const messageSpan = document.getElementById("msg");
         const newUser = {
@@ -64,6 +75,7 @@ class SignUp extends React.Component {
 
     async upload(event) {
 
+        document.getElementById("upload-btn").textContent = "Archivo Seleccionado"
         await this.setState({
             selectedFiles: event.target.files,
           });
@@ -93,6 +105,8 @@ class SignUp extends React.Component {
                 pathPhoto:response.data.url,
 
                 });
+                document.getElementById("msg").textContent = "Foto cargada";
+                document.getElementById("msg").className = "green";
             })
             .catch(() => {
                 this.setState({
@@ -120,23 +134,41 @@ class SignUp extends React.Component {
         } = this.state;
       
         return (
-            <div>
-                <h2>SignUp</h2>
-                <div>
-                    <form>
-                        <input type="text" placeholder="Username" name="username" onChange={this.handleChange} required/>
-                        <input type="email" placeholder="Email" name="email" onChange={this.handleChange} required/>
-                        <input type="password" placeholder="Password" name="password" onChange={this.handleChange} required/>
-                        <input type="password" placeholder="Password" name="passwordCheck" onChange={this.handleChange} required/>
-                        <input type="file" name="file" id="file"  className="inputfile" onChange={this.upload} />
-                        <label htmlFor="file">Choose a file</label>
-
-                        <button disabled={!pathPhoto} onClick={this.handleSubmit} >Sign up</button>
-                    </form>
-                    <div>
-                        <span id="msg"></span>
-                    </div>
-                </div>                            
+            <div className="signup-wrapper">
+                <div className="signup-div">
+                    <div className="signup-inner">
+                        <h2>SignUp</h2>
+                        <div className="signup-inner-div">
+                            <form>
+                                <div className="signup-user">
+                                    <label htmlFor="username" >Usuario</label>
+                                    <input type="text" placeholder="Username" name="username" onChange={this.handleChange} required/>
+                                </div>
+                                <div className="signup-email">
+                                    <label htmlFor="email" >Correo Electronico</label>
+                                    <input type="email" placeholder="Email" name="email" onChange={this.handleChange} required/>
+                                </div>
+                                <div className="signup-password">
+                                    <label htmlFor="password" >Contraseña</label>
+                                    <input type="password" placeholder="Password" name="password" onChange={this.handleChange} required/>
+                                </div>
+                                <div className="signup-checkpassword">
+                                    <label htmlFor="passwordCheck" >Confirmar Contraseña</label>
+                                    <input type="password" placeholder="Password" name="passwordCheck" onChange={this.handleChange} required/>
+                                </div>
+                                <div className="signup-file">
+                                    <input type="file" name="file" id="file"  className="inputfile" onChange={this.upload} />
+                                    <label htmlFor="file" id="upload-btn">Choose a file</label>
+                                </div>
+                                <div className="msg-div">
+                                    <span id="msg"></span>
+                                </div>
+                                <button disabled={!pathPhoto} onClick={this.handleSubmit} >Sign up</button>
+                            </form>
+                            
+                        </div>
+                    </div>                          
+                </div>
             </div>
         );
     }
