@@ -130,10 +130,28 @@ const addFriend = (userId,friendId)=> {
     });
 }
 
+const getFriends = (userId) => {
+    return new Promise(async (resolve,reject) => {
+        if(!userId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const friends = await store.getFriends(userId);
+        if(friends) {
+            resolve(friends);
+        } else {
+            reject('Error no se pudo obtener los amigos');
+        }
+
+    });
+}
+
 module.exports = {
     signup,
     signin,
     checkPassword,
     getAllUsers,
-    addFriend
+    addFriend,
+    getFriends
 };

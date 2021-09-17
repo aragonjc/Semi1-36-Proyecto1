@@ -42,4 +42,9 @@ const addFriend = async (userId,friendId) => {
     return addedFriend;
 }
 
-module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser,getUsers,addFriend};
+const getFriends = async (userId) => {
+    const friends = await Friend.findAll({where:{usuario:userId}})
+    return friends;
+}
+
+module.exports = {addNewUser,loginEmail,loginUser,exitsUser,getUser,getUsers,addFriend,getFriends};

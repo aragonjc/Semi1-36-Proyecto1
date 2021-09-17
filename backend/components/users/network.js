@@ -38,4 +38,11 @@ router.post('/addfriend',(req,res) => {
         .catch(error => res.status(500).send({error:error,body:''}));
 });
 
+router.post('/getfriends',(req,res) => {
+
+    controller.getFriends(req.body.userId)
+        .then(response => res.status(200).send({body:response}))
+        .catch(error => res.status(500).send({error:error}));
+});
+
 module.exports = router;

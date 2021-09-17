@@ -18,7 +18,9 @@ class Amigos extends React.Component {
             const token = localStorage.getItem('auth-token');
             http.post('/auth/check',{token:token})
             .then(response=> {
+
 				this.setState({_id:response.data._id});
+
 				http.post('/auth/all',{id:response.data._id})
                 .then(res => {
                     let users = res.data.body;
@@ -50,6 +52,20 @@ class Amigos extends React.Component {
                     .catch(error => console.log(error));
                 })
                 .catch(error => error);
+
+                http.post('/auth/getfriends',{userId:response.data._id})
+                .then(result => {
+                    const amigosObj = result.data.body;
+                    const amigosArray = amigosObj.map(element=>{
+                        return element.amigo
+                    })
+                    this.setState({
+                        amigos:amigosArray
+                    })
+                    console.log(amigosArray)
+                })
+                .catch(error=> console.log(error));
+
 			})
             .catch(err=>this.props.history.push('/signin'));
             
@@ -66,7 +82,10 @@ class Amigos extends React.Component {
         const userId = this.state._id;
         
         http.post('/auth/addfriend',{userId:userId,friendId:friendID})
-        .then(response => console.log(response))
+        .then(response => {
+            
+            window.location.reload();
+        })
         .catch(err=> console.log(err));
 
     }
@@ -170,7 +189,14 @@ class Amigos extends React.Component {
 																		</td>
 																		<td>{user.email}</td>
 																		<td>{user.count} archivos</td>
-																		<td ><a className="edit-file-btn" id="id-edit-file-btn" data-key="1" onClick={()=>this.addFriend(user.id)} >Agregar</a></td>
+																		<td >
+                                                                            {!this.state.amigos.find(e=>e==user.id) && 
+                                                                                <a className="edit-file-btn" onClick={()=>this.addFriend(user.id)} >
+                                                                                    Agregar
+                                                                                </a>
+                                                                            }
+                                                                            
+                                                                        </td>
 																	</tr>)
 																})														
 															}					
