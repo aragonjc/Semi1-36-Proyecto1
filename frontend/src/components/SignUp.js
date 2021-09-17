@@ -1,7 +1,8 @@
 import React from "react";
-import './resources/signup.css'
+import './resources/signup.css';
 import UploadService from '../services/upload-file';
 import http from "../http/http-commons";
+import { Link } from "react-router-dom";
 
 class SignUp extends React.Component {
 
@@ -165,7 +166,7 @@ class SignUp extends React.Component {
                                 </div>
                                 <button disabled={!pathPhoto} onClick={this.handleSubmit} >Sign up</button>
                             </form>
-                            
+                            <Link to='/signin'>Iniciar Sesion</Link>
                         </div>
                     </div>                          
                 </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import http from "../http/http-commons";
-import './resources/signup.css'
+import {Link} from 'react-router-dom';
+import './resources/signup.css';
 
 class SignIn extends React.Component {
 
@@ -70,6 +71,7 @@ class SignIn extends React.Component {
                                 </div>
                                 <input className="signin-button" type="submit" value="Sign in"/>
                             </form>
+                            <Link to="/signup">Crear cuenta</Link>
                             
                         </div>
                     </div>                          
