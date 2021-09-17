@@ -25,7 +25,16 @@ class Main extends React.Component {
             http.post('/auth/check',{token:token})
             .then(response=> {
 				this.setState({_id:response.data._id});
-				http.post('/files/allprivate',{token:token, userId:response.data._id})
+				
+                http.post('/auth/getpic',{userId:response.data._id})
+                .then(res=>{
+                    this.setState({
+                        photourl:res.data.url
+                    });
+                })
+                .catch(err => console.log(err));
+                
+                http.post('/files/allprivate',{token:token, userId:response.data._id})
 				.then( (res)=>{
 					console.log(res.data.body);
 					 this.setState({
@@ -120,12 +129,12 @@ class Main extends React.Component {
                                     <div className="user-info-last">
                                    <a className="logout" onClick={this.logout}>Cerrar Sesion</a>
                                         <ul>
-                                            
-                                            <li>
-                                                
+                                            <li> 
                                                 <a href="#">
                                                     <div>
-                                                        P
+                                                        {
+                                                            <a className="link-photo" href={this.state.photourl}><img className="profile-pic" src={this.state.photourl} width="25" height="25" href="/public" /></a>
+                                                        }
                                                     </div>
                                                 </a>
                                             </li>

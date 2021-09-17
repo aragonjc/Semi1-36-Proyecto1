@@ -45,4 +45,11 @@ router.post('/getfriends',(req,res) => {
         .catch(error => res.status(500).send({error:error}));
 });
 
+router.post('/getpic',(req,res) => {
+
+    controller.getPhotoUrl(req.body.userId)
+        .then(response => res.status(200).send({url:response}))
+        .catch(error=>res.status(500).send({error:error}));
+});
+
 module.exports = router;

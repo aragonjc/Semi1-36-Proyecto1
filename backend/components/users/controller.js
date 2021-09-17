@@ -147,11 +147,28 @@ const getFriends = (userId) => {
     });
 }
 
+const getPhotoUrl = (userId) => {
+    return new Promise(async (resolve,reject) => {
+        if(!userId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const user = await store.getUser(userId);
+        if(user) {
+            resolve(user.dataValues.photo);
+        } else {
+            reject('Error no se pudo obtener la imagen');
+        }
+    });
+}
+
 module.exports = {
     signup,
     signin,
     checkPassword,
     getAllUsers,
     addFriend,
-    getFriends
+    getFriends,
+    getPhotoUrl
 };

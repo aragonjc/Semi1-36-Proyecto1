@@ -514,6 +514,15 @@ margin-top: 10px;
     white-space: nowrap;
 }
 
+.profile-pic {
+    border-radius: 50%;
+}
+
+.link-photo {
+    line-height: 0px !important;
+    padding: 0 0 0 0 !important;
+}
+
 .btn-btn label{
     margin:0;
 }
