@@ -27,7 +27,13 @@ class PrivateFiles extends React.Component {
             .then(response=> {
 				this.setState({_id:response.data._id});
 				
-                
+                http.post('/auth/getpic',{userId:response.data._id})
+                .then(res=>{
+                    this.setState({
+                        photourl:res.data.url
+                    });
+                })
+                .catch(err => console.log(err));
                 
 
                 http.post('/auth/getfriends',{userId:response.data._id})
@@ -138,7 +144,9 @@ class PrivateFiles extends React.Component {
                                             <li>
                                                 <a href="#">
                                                     <div>
-                                                        P
+                                                        {
+                                                            <a className="link-photo" href={this.state.photourl}><img className="profile-pic" src={this.state.photourl} width="25" height="25" href="/public" /></a>
+                                                        }
                                                     </div>
                                                 </a>
                                             </li>
