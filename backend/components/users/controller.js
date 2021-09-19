@@ -72,7 +72,103 @@ const signin = (userCredential, password) => {
     });
 }
 
+const checkPassword = (userId,password) => {
+    return new Promise(async (resolve,reject) =>{
+        if(!userId || !password) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+    
+        const user = await store.getUser(userId);
+    
+        if(!user) {
+            reject('El usuario es incorrecto')
+        } else {
+            const validPassword = await bcrypt.compare(password,user.dataValues.password);
+            if (validPassword)
+                resolve(true);
+            else
+                resolve(false)
+        }
+    });
+}
+
+const getAllUsers = (userId) => {
+    return new Promise(async (resolve,reject) =>{
+        if(!userId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const users = await store.getUsers(userId);
+        if(users) {
+            const userList = users.filter(user=>{
+                if(user.id != userId) {
+                    return user;
+                }
+            })
+            resolve(userList);
+        } else {
+            reject('No se pudo accesar a los usuarios')
+        }
+    });
+}
+
+const addFriend = (userId,friendId)=> {
+    return new Promise(async (resolve,reject) => {
+        if(!userId || !friendId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const result = await store.addFriend(userId,friendId);
+        if(result) {
+            resolve('Todo Ok')
+        } else {
+            reject('Error no se pudo añadir amigo');
+        }
+    });
+}
+
+const getFriends = (userId) => {
+    return new Promise(async (resolve,reject) => {
+        if(!userId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const friends = await store.getFriends(userId);
+        if(friends) {
+            resolve(friends);
+        } else {
+            reject('Error no se pudo obtener los amigos');
+        }
+
+    });
+}
+
+const getPhotoUrl = (userId) => {
+    return new Promise(async (resolve,reject) => {
+        if(!userId) {
+            console.error(chalk.bgRed('[usersController] datos nulos'));
+            reject('Los datos son invalidos')
+        }
+
+        const user = await store.getUser(userId);
+        if(user) {
+            resolve(user.dataValues.photo);
+        } else {
+            reject('Error no se pudo obtener la imagen');
+        }
+    });
+}
+
 module.exports = {
     signup,
-    signin
+    signin,
+    checkPassword,
+    getAllUsers,
+    addFriend,
+    getFriends,
+    getPhotoUrl
 };

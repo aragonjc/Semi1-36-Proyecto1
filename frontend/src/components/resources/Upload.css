@@ -1,0 +1,180 @@
+div {
+    box-sizing: border-box;
+    display: block;
+}
+
+div input {
+    display: inline-block;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.upload-container {
+    width: 500px;
+    height: 500px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 35px;
+    padding-bottom: 45px;
+    border-radius: 25px;
+    border: #01041b solid 1px;
+}
+
+.inner-container h2 {
+    text-align: center;
+    color:#1C2137;
+}
+
+.file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+    margin: 0 auto;
+}
+
+.file + label {
+    
+    display: inline-block;
+    cursor: pointer;
+    /*width: 220px;*/
+    width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 400 !important;
+    font-size: inherit;
+    color: #01041b;
+    border-radius: 8px;
+    background: #f3f3f3;
+    margin: 0 auto;
+}
+
+
+.file:focus + label,
+.file + label:hover {
+    background-color: #e5e5e5;
+}
+
+.file-div {
+    /*display: table;
+    margin: 0 auto;*/
+    margin-top: 30px;
+}
+
+.file-info {
+    margin-top: 30px;
+}
+
+
+
+.file-info-path {
+    padding-right: 15px;
+    color:black;
+    font-weight: 800;
+}
+
+.file-path {
+    color: black;
+}
+
+.file-name-info label{
+    margin-right: 10px;
+    color: black;
+    font-weight: 800;
+}
+
+.file-name-info input {
+    width: calc(100% - 178px);
+    padding: 3px;
+    border-radius: 4px;
+    border-width: 1px;
+}
+
+.file-name-info input[type="text"] {
+    font-size:16px !important;
+    
+}
+
+.file-type-lbl {
+    margin-right: 10px;
+    color: black;
+    font-weight: 800;
+}
+
+.file-last-info {
+    margin-top: 15px;
+}
+
+.file-type-info {
+    margin-top: 15px;
+}
+
+.file-password {
+    margin-top:15px;
+}
+
+.file-password label{
+    margin-right: 10px;
+    color: black;
+    font-weight: 800;
+}
+.file-password input {
+    width: calc(100% - 110px);
+    padding: 3px;
+    border-radius: 4px;
+    border-width: 1px;
+}
+
+.file-password input[type="password"] {
+    font-size:16px !important;
+}
+
+#file-type {
+    width:calc(100% - 143px);
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.msg-div {
+    margin-top:15px;
+}
+
+.msg-div span {
+    margin: 0 auto;
+}
+
+.inner-container button {
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 400 !important;
+    font-size: inherit;
+    color: #fff;
+    border-radius: 8px;
+    background: #8f93f6;
+    margin: 0 auto;
+    margin-top: 30px;
+    
+    bottom: 0;
+    border:none;
+    display: table-cell; vertical-align: bottom;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}

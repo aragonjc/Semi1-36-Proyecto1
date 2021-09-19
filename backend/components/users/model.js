@@ -1,6 +1,7 @@
 const DataTypes = require('sequelize');
 const sequelize = require('../../db/db');
 
+
 const User = sequelize.define('Usuario', {
     nickname: {
       type: DataTypes.STRING,
@@ -23,5 +24,7 @@ const User = sequelize.define('Usuario', {
         freezeTableName: true,
         tableName: 'Usuario'
   });
+
+
 
 module.exports = User;

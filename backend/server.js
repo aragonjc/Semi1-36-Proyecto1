@@ -10,7 +10,7 @@ const app = express();
 global.__basedir = __dirname;
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: config.cors.origin,
   methods: ['GET', 'PUT', 'POST']
 };
 
